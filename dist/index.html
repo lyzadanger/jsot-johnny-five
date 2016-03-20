@@ -29,11 +29,145 @@
 
 <section><section id="hardware-hacking-with-johnny-five-and-node.js" class="titleslide slide level1"><h1>Hardware Hacking with Johnny-Five and Node.js</h1></section><section id="javascript-and-hardware-together" class="slide level2">
 <h1>JavaScript and Hardware Together</h1>
-<p>Different methods</p>
+<ul>
+<li class="fragment">Host-client method</li>
+<li class="fragment">Embedded JS</li>
+<li class="fragment">Other Methods</li>
+</ul>
+</section><section id="johnny-five-and-arduino" class="slide level2">
+<h1>Johnny-Five and Arduino</h1>
+<p>Today, we are going to set up a <em>host-client</em> configuration using Arduino Uno development boards, <em>firmata</em> firmware and the Johnny-Five Node.js framework.</p>
 </section></section>
-<section><section id="host-client-configuration" class="titleslide slide level1"><h1>Host-Client Configuration</h1></section><section id="firmware" class="slide level2">
-<h1>Firmware</h1>
-<p>Stuff and nonsense. Goodness. Hmmm...Great.</p>
+<section><section id="arduino" class="titleslide slide level1"><h1>Arduino</h1></section><section id="arduino...its-everything-you-want-to-be" class="slide level2">
+<h1>Arduino...It's Everything You Want to Be</h1>
+<p>Arduino. It's a company. It's a project. It's hardware. It's a user community. Arduino is, well, it's <em>Arduino</em>, a broad concept combining open-source hardware and software with the goal of making it easy (and inexpensive) for beginners to build interactive devices.</p>
+</section><section id="arduino-uno" class="slide level2">
+<h1>Arduino Uno</h1>
+<ul>
+<li class="fragment">Most popular Arduino board</li>
+<li class="fragment">Great for beginners</li>
+<li class="fragment">Widely tested and used</li>
+</ul>
+</section><section id="lay-of-the-land" class="slide level2">
+<h1>Lay of the Land</h1>
+<p>Diagram</p>
+</section><section id="arduino-workflow" class="slide level2">
+<h1>Arduino Workflow</h1>
+<ol type="1">
+<li>Write code in the Arduino IDE using the Arduino programming language</li>
+<li>Compile and upload (flash) sketch to board</li>
+</ol>
+</section><section id="hello-world-led-with-arduino" class="slide level2">
+<h1>Hello, World LED with Arduino</h1>
+<pre><code>void setup() {
+  pinMode(13, OUTPUT); &lt;1&gt;
+}
+void loop() {
+  digitalWrite(13, HIGH); &lt;2&gt;
+  delay(500); &lt;3&gt;
+  digitalWrite(13, LOW); &lt;4&gt;
+  delay(500);
+}</code></pre>
+</section><section id="arduino-sketches" class="slide level2">
+<h1>Arduino Sketches</h1>
+<p>Once uploaded, Arduino sketch resides in microcontroller's nonvolatile <em>program memory</em>.</p>
+</section></section>
+<section><section id="host-client-configuration" class="titleslide slide level1"><h1>Host-Client Configuration</h1></section><section id="controlling-the-uno-with-javascript" class="slide level2">
+<h1>Controlling the Uno with JavaScript</h1>
+<p>To use the Uno in a host-client setup, we'll need to:</p>
+<div class="fragment">
+<ol type="1">
+<li>Upload <em>firmata</em> firmware to microcontroller</li>
+<li>Install Johnny-Five framework</li>
+</ol>
+</div>
+</section><section id="firmata" class="slide level2">
+<h1>Firmata</h1>
+<ul>
+<li class="fragment">Firmata <em>protocol</em></li>
+<li class="fragment">Arduino firmata <em>implementation</em></li>
+</ul>
+</section><section id="flashing-firmata" class="slide level2">
+<h1>Flashing Firmata</h1>
+<ol type="1">
+<li>Open Arduino IDE</li>
+<li>Connect the Uno with USB</li>
+<li>In the <code>File -&gt; Examples</code> menu, find the <code>Firmata</code> submenu and select <code>StandardFirmata</code></li>
+<li>Upload the <code>StandardFirmata</code> sketch to the Arduino</li>
+</ol>
+</section><section id="installing-johnny-five" class="slide level2">
+<h1>Installing Johnny-Five</h1>
+<p>Johnny-Five is a Node.js firmata-based framework for controlling hardware platforms using a host-client configuration.</p>
+<pre><code>mkdir playtime
+cd playtime
+npm install johnny-five</code></pre>
+</section></section>
+<section><section id="hello-world-blink-with-johnny-five" class="titleslide slide level1"><h1>Hello, World Blink with Johnny-Five</h1></section><section id="hello-world-script" class="slide level2">
+<h1>Hello, World Script</h1>
+<pre><code>const five = require(&#39;johnny-five&#39;);
+const board = new five.Board();
+
+board.on(&#39;ready&#39;, () =&gt; {
+  const led = new five.Led(13);
+  led.blink(500);
+});</code></pre>
+<p>hello.js</p>
+</section><section id="arduino-lifecycle-vs.-johnny-five-lifecycle" class="slide level2">
+<h1>Arduino Lifecycle vs. Johnny-Five Lifecycle</h1>
+<ul>
+<li class="fragment">Arduino <code>loop</code> vs. Johnny Five <code>Board.on('ready',...)</code></li>
+<li class="fragment">Johnny-Five event-driven</li>
+<li class="fragment"><code>blink</code> uses <code>setInterval</code> under the covers</li>
+<li class="fragment">How can we interact with an LED?</li>
+</ul>
+</section><section id="adapting-hello-world" class="slide level2">
+<h1>Adapting Hello, World</h1>
+<pre><code>const five = require(&#39;johnny-five&#39;);
+const board = new five.Board();
+
+board.on(&#39;ready&#39;, () =&gt; {
+  const led = new five.Led(13);
+  var blinkCount = 0;
+  const blinkMax = 10;
+
+  led.blink(500, () =&gt; {
+    blinkCount++;
+    console.log(`I have changed state ${blinkCount} times`);
+    if (blinkCount &gt;= blinkMax) {
+      console.log(&#39;I shall stop blinking now&#39;);
+      led.stop();
+    }
+  });
+});</code></pre>
+</section></section>
+<section><section id="led-and-other-johnny-five-classes" class="titleslide slide level1"><h1>Led and Other Johnny-Five Classes</h1></section><section id="led-methods" class="slide level2">
+<h1>Led Methods</h1>
+<ul>
+<li><code>on</code>, <code>off</code></li>
+<li><code>blink</code> (a.k.a. <code>strobe</code>)</li>
+</ul>
+</section><section id="led-methods-requiring-pwm" class="slide level2">
+<h1>Led Methods Requiring PWM</h1>
+<p>Basic PWM diagram (maybe reusable in book!)</p>
+</section><section id="node.js-ecosystem" class="slide level2">
+<h1>Node.js Ecosystem</h1>
+</section><section id="rgb-leds" class="slide level2">
+<h1>RGB Leds</h1>
+</section><section id="weatherball" class="slide level2">
+<h1>Weatherball</h1>
+</section></section>
+<section><section id="sensors-and-johnny-five" class="titleslide slide level1"><h1>Sensors and Johnny-Five</h1></section><section id="tmp-36-example" class="slide level2">
+<h1>TMP 36 Example</h1>
+</section><section id="tmp-36-plus-rgb-leds" class="slide level2">
+<h1>TMP 36 Plus RGB LEDs</h1>
+</section></section>
+<section><section id="serial-data" class="titleslide slide level1"><h1>Serial Data</h1></section><section id="magnetometer" class="slide level2">
+<h1>Magnetometer</h1>
+</section></section>
+<section><section id="output" class="titleslide slide level1"><h1>Output</h1></section><section id="magnetometer-plus-servo" class="slide level2">
+<h1>Magnetometer Plus Servo</h1>
+</section><section id="motor-drivers-brief" class="slide level2">
+<h1>Motor Drivers (BRIEF!)</h1>
 </section></section>
     </div>
   </div>

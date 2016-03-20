@@ -21,5 +21,9 @@
   "repository": {
     "type": "git",
     "url": "git://github.com/lyzadanger/jsot-johnny-five.git"
+  },
+  "dependencies": {
+    "johnny-five": "^0.9.34",
+    "website-color-extractor": "^1.0.0"
   }
 }

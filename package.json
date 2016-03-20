@@ -1,0 +1,23 @@
+{
+  "name": "jsot-johnny-five",
+  "version": "1.0.0",
+  "description": "Slide show about Johnny-Five and host-client hardware hackery",
+  "main": "server.js",
+  "config": {
+    "port": "3000"
+  },
+  "scripts": {
+    "build": "scripts/build.sh",
+    "serve": "node server.js",
+    "start": "npm run build && npm run serve"
+  },
+  "author": "Lyza Danger Gardner",
+  "license": "MIT",
+  "devDependencies": {
+    "node-static": "^0.7.7"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/lyzadanger/jsot-johnny-five.git"
+  },
+}

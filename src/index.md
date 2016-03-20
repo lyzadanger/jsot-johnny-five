@@ -1,4 +1,4 @@
-# Johnny-Five
+# Hardware Hacking with Johnny-Five and Node.js
 
 ## JavaScript and Hardware Together
 
@@ -8,4 +8,4 @@ Different methods
 
 ## Firmware
 
-Stuff
+Stuff and nonsense. Goodness. Hmmm...Great.

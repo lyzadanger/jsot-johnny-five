@@ -1,3 +1,15 @@
+/**
+ * Important note. A dependency for this script,
+ * "website-color-extractor": "^1.0.0"
+ * was affected by the broken-internet-npm disaster of March 2016
+ * and as of time of writing, the dependency it has on
+ * https://www.npmjs.com/package/memoize-async
+ * is unresolved. If you want to try to run this script, you'll need to
+ * `npm install website-color-extractor` and hope it works
+ * I have removed the dependency from `package.json` so that it won't break
+ * for everyone.
+ */
+
 const five           = require('johnny-five');
 const webColors      = require('website-color-extractor');
 const board          = new five.Board();

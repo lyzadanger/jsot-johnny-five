@@ -46,6 +46,10 @@ node examples/02-hello-stop.js
 node examples/03-rgb.js
 ```
 
+**Note**: I've removed the dependency this script has on `website-color-extractor` from `package.json` because of dependency issues caused by the great npm debacle of March, 2016. See more detailed note in source script.
+
+A bonus basic RGB LED script can be found in [examples/03-rgb-dance.js](examples/03-rgb-dance.js).
+
 ### Analog Sensors
 
 The following schematic is for both the [photoresistor](examples/04-photoresistor.js) and [proximity sensor](examples/05-proximity.js) examples.

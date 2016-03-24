@@ -50,6 +50,8 @@ node examples/03-rgb.js
 
 The following schematic is for both the [photoresistor](examples/04-photoresistor.js) and [proximity sensor](examples/05-proximity.js) examples.
 
+The proximity example uses a `GP2Y0A41SK0F` infrared proximity sensor.
+
 ![](images/fritzing-sensors.png)
 
 ```
@@ -64,7 +66,9 @@ node examples/05-proximity.js
 
 To run the [compass-north alarm](examples/06-compass.js) example, you'll need the following setup:
 
-![](images/compass.png)
+![](images/fritzing-compass.png)
+
+The example uses the Sparkfun `HMC5883L` triple-access breakout.
 
 ```
 node examples/06-compass.js

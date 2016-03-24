@@ -14,10 +14,6 @@
   },
   "author": "Lyza Danger Gardner",
   "license": "MIT",
-  "devDependencies": {
-    "node-static": "^0.7.7",
-    "watch": "^0.17.1"
-  },
   "repository": {
     "type": "git",
     "url": "git://github.com/lyzadanger/jsot-johnny-five.git"

@@ -1,20 +1,31 @@
-//const five = require('johnny-five');
+const five = require('johnny-five');
 const webColors = require('website-color-extractor');
 
-//const board = new five.Board();
+const board = new five.Board();
 
-webColors.frequent({
-  amount: 10,
-  pages : [
-    ['https://raw.githubusercontent.com/rwaldron/johnny-five/master/docs/breadboard/led-rgb.png',
-    ['1200x1200'],
-    { crop: true }]
-  ]
-}, (err, colors) => {
-  // Throw out greys because boring
-  const interestingColors = colors[0].filter(color => {
-    return (!(color.r === color.g && color.g === color.b));
+function cycleColors (led, colors, index) {
+  if (!index || index >= colors.length) { index = 0; }
+  console.log('changing colors', colors[index]);
+  led.color([colors[index].r, colors[index].g, colors[index].b]);
+  setTimeout(() => {
+    cycleColors(led, colors, index + 1);
+  }, 2000);
+}
+
+board.on('ready', function () {
+  const colorLED = new five.Led.RGB([6, 5, 3]);
+  webColors.frequent({
+    amount: 20,
+    pages : [
+      ['https://www.npmjs.com',
+      ['1024x768'],
+      { crop: true }]
+    ]
+  }, (err, colors) => {
+    // Throw out greys because boring
+    const mainColors = colors[0].filter(color => {
+      return (!(color.r === color.g && color.g === color.b));
+    });
+    cycleColors(colorLED, mainColors);
   });
-  console.log(interestingColors);
-  // Set colors
 });

@@ -132,23 +132,40 @@ board.on('ready', () => {
 
 * `on`, `off`
 * `blink` (a.k.a. `strobe`)
+* `toggle`
 
 ## Led Methods Requiring PWM
 
 Basic PWM diagram (maybe reusable in book!)
 
-## Node.js Ecosystem
+* `brightness`
+* `fade`, `fadeIn`, `fadeOut`
+* `pulse`
+
+Link to docs
 
 ## RGB Leds
 
+* Johnny-Five Led.RGB class
 
-## Weatherball
+## Node.js Ecosystem
+
+`website-color-extractor`
+
+## Website Colors
+
+Example script
 
 # Sensors and Johnny-Five
 
-## TMP 36 Example
+## Basic Sensor
 
-## TMP 36 Plus RGB LEDs
+Analog photoresistor
+TMP36
+
+## Proximity Sensor
+
+## Sensors and LEDs
 
 # Serial Data
 
@@ -156,6 +173,8 @@ Basic PWM diagram (maybe reusable in book!)
 
 # Output
 
-## Magnetometer Plus Servo
+## Magnetometer Plus LCD
+
+## Plus Servo
 
 ## Motor Drivers (BRIEF!)

@@ -1,16 +1,8 @@
 {
   "name": "jsot-johnny-five",
   "version": "1.0.0",
-  "description": "Slide show about Johnny-Five and host-client hardware hackery",
-  "main": "server.js",
-  "config": {
-    "port": "3000"
-  },
+  "description": "Examples of Johnny-Five and Arduino Uno",
   "scripts": {
-    "build": "scripts/build.sh",
-    "serve": "node server.js",
-    "start": "npm run build && npm run serve",
-    "watch": "watch 'npm run build' ./src"
   },
   "author": "Lyza Danger Gardner",
   "license": "MIT",

@@ -52,7 +52,12 @@ A bonus basic RGB LED script can be found in [examples/03-rgb-dance.js](examples
 
 ### Analog Sensors
 
-The following schematic is for both the [photoresistor](examples/04-photoresistor.js) and [proximity sensor](examples/05-proximity.js) examples.
+The following schematic is for:
+
+* [photoresistor basic](examples/04-photoresistor-basic.js)
+* [photoresistor scaled](examples/04-photoresistor-scaled.js)
+* [photoresistor](examples/04-photoresistor.js)
+* [proximity sensor](examples/05-proximity.js)
 
 The proximity example uses a `GP2Y0A41SK0F` infrared proximity sensor.
 

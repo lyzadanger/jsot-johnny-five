@@ -1,15 +1,20 @@
-const five = require('johnny-five');
-const webColors = require('website-color-extractor');
+const five           = require('johnny-five');
+const webColors      = require('website-color-extractor');
+const board          = new five.Board();
 
-const board = new five.Board();
+const COLOR_DURATION = 2000;
+const WEBSITE        = 'https://www.npmjs.com';
 
+/**
+ * Cycle through the colors in `colors`, one per every COLOR_DURATION
+ */
 function cycleColors (led, colors, index) {
   if (!index || index >= colors.length) { index = 0; }
   console.log('changing colors', colors[index]);
   led.color([colors[index].r, colors[index].g, colors[index].b]);
   setTimeout(() => {
-    cycleColors(led, colors, index + 1);
-  }, 2000);
+    cycleColors(led, colors, index += 1);
+  }, COLOR_DURATION);
 }
 
 board.on('ready', function () {
@@ -17,7 +22,7 @@ board.on('ready', function () {
   webColors.frequent({
     amount: 20,
     pages : [
-      ['https://www.npmjs.com',
+      [WEBSITE,
       ['1024x768'],
       { crop: true }]
     ]
